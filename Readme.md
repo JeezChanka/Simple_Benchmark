@@ -2,7 +2,9 @@
 
 ## Getting started
 
-Jeśli macie błąd `ModuleNotFoundError: No module named 'PySimpleGUI'` musicie najpierw zainstalować odpowiednie moduły:
+W pliku requirements.txt muszą być dodane wszystkie biblioteki do instalowania. 
 
-`python -m pip install matplotlib`
-`python -m pip install PySimpleGUI`
+Możecie do tego użyć:
+
+`python -m pip install pipreqs` (auto uzupełnianie wymagań)
+`pipreqs . --force` (--force nadpisuje plik)
