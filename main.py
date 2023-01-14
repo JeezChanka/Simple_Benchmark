@@ -1,6 +1,9 @@
 import PySimpleGUI as sg
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from connector import DataHandler
+
+DataHandler()
 #dane źródłowe   
 year = ["ADATA","Kingstone","WD","Gigabyte","Intel","Goodram","HyperX","Patriot","Samsung","Odra"]
 unemployment_rate = [9.8,12,8,7.2,6.9,7,6.5,6.2,5.5,6.3]
