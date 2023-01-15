@@ -19,7 +19,7 @@ def create_bar_graph(name, result):
 def getLayoutGraph():
     return [[sg.Text('Porównanie wyników')], 
             [sg.Canvas(size=(1000, 1000), key='-CANVAS-')],
-            [sg.Exit(button_text="Wyjście")]]
+            [sg.Exit(button_text='Zamknij')]]
 
 
 #rysowanie wykresów
@@ -28,3 +28,15 @@ def draw_figure(canvas, figure):
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
+
+
+def show_graph(names, times):
+    layout = getLayoutGraph()
+    window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center') 
+    draw_figure(window['-CANVAS-'].TKCanvas, create_bar_graph(names, times))
+    while True:
+        event, values = window.read()
+        if event == sg.WIN_CLOSED or event == 'Zamknij':
+            break
+        
+    window.close()

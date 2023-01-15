@@ -30,10 +30,10 @@ def GetDataHandler(cnx):
     cursor.execute(mySql_Select_Query)
     results = cursor.fetchall()
 
-    print("Recieved data:")
+    # print("Recieved data:")
     # Loop through results and print
-    for result in results:
-        print(result)
+    # for result in results:
+    #     print(result)
     
     cursor.close()
     return results
