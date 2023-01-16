@@ -18,7 +18,7 @@ results = connector.GetDataHandler(cnx)
 ids, names, times = zip(*results)
 
 layout = main_window.getLayoutMainWindow()
-window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center',size=(300, 150)) 
+window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center', size=(300, 150)) 
 #graph.draw_figure(window['-CANVAS-'].TKCanvas, graph.create_bar_graph(names, times))
 
 selected_drive = ''
@@ -41,7 +41,10 @@ while True:
         graph.show_graph(names, times)
         window['Start'].update(disabled=False)
         window['-DISKS-'].update(disabled=False)
-        window['Wyjście'].update(disabled=False)        
+        window['Wyjście'].update(disabled=False) 
+    elif event == 'Odśwież':
+        main_window.main_refresh(window)   
+        window.refresh()       
 
 window.close()
     
