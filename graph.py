@@ -29,6 +29,12 @@ def draw_figure(canvas, figure):
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
+    
+    
+def save_handler(cnx, name, final_result, window):
+    connector.InsertDataHandler(cnx, (name, final_result))
+    window['-SAVE-'].update(disabled=True)
+    window['-NAME-'].update(disabled=True)
 
 
 def show_graph(names, times, cnx):
@@ -46,8 +52,3 @@ def show_graph(names, times, cnx):
     window['-NAME-'].update(disabled=False)    
     window.close()
     
-    
-    def save_handler(cnx, name, final_result, window):
-        connector.InsertDataHandler(cnx, (name, final_result))
-        window['-SAVE-'].update(disabled=True)
-        window['-NAME-'].update(disabled=True)
