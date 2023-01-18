@@ -27,6 +27,7 @@ new_result = 1
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED or event == 'Wyjście':
+        window.write_event_value('Zamknij')
         break
     elif event == 'Start':
         window['Start'].update(disabled=True)
@@ -38,7 +39,9 @@ while True:
         names = names[:-1] + ('Twój wynik',)
         times = times[:-1] + (new_result,)
         print(names)
-        graph.show_graph(names, times)
+        graph.show_graph(names, times, cnx)
+        results = connector.GetDataHandler(cnx)
+        ids, names, times = zip(*results)
         window['Start'].update(disabled=False)
         window['-DISKS-'].update(disabled=False)
         window['Wyjście'].update(disabled=False) 

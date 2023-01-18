@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import connector
 
 #def wyglądu wykresu
 def create_bar_graph(name, result):
@@ -19,7 +20,7 @@ def create_bar_graph(name, result):
 def getLayoutGraph():
     return [[sg.Text('Porównanie wyników')], 
             [sg.Canvas(size=(1000, 1000), key='-CANVAS-')],
-            [sg.Exit(button_text='Zamknij')]]
+            [sg.Input(key='-NAME-', size=(20,60)),sg.Button(key='-SAVE-',button_text="Zapisz wynik", pad=(10,10)),sg.Exit(button_text='Zamknij')]]
 
 
 #rysowanie wykresów
@@ -30,7 +31,7 @@ def draw_figure(canvas, figure):
     return figure_canvas_agg
 
 
-def show_graph(names, times):
+def show_graph(names, times, cnx):
     layout = getLayoutGraph()
     window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center') 
     draw_figure(window['-CANVAS-'].TKCanvas, create_bar_graph(names, times))
@@ -38,5 +39,15 @@ def show_graph(names, times):
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Zamknij':
             break
-        
+        elif event == '-SAVE-':
+            save_handler(cnx, values['-NAME-'], times[9], window)
+    
+    window['-SAVE-'].update(disabled=False)
+    window['-NAME-'].update(disabled=False)    
     window.close()
+    
+    
+    def save_handler(cnx, name, final_result, window):
+        connector.InsertDataHandler(cnx, (name, final_result))
+        window['-SAVE-'].update(disabled=True)
+        window['-NAME-'].update(disabled=True)
