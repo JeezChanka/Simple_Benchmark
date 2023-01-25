@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import mariadb
 import connector
 import graph
+import preview_graph
 import main_window
 import benchmark
 
@@ -18,7 +19,7 @@ results = connector.GetDataHandler(cnx)
 ids, names, times = zip(*results)
 
 layout = main_window.getLayoutMainWindow()
-window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center', size=(300, 200))
+window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center', size=(350, 200))
 #graph.draw_figure(window['-CANVAS-'].TKCanvas, graph.create_bar_graph(names, times))
 
 selected_drive = ''
@@ -41,19 +42,23 @@ while True:
 
         # print(new_result)
 
+        results = connector.GetDataHandler(cnx)
+        ids, names, times = zip(*results)
+
         names = names[:-1] + ('Twój wynik',)
         times = times[:-1] + (new_result,)
 
         print(names)
 
         graph.show_graph(names, times, cnx)
-        results = connector.GetDataHandler(cnx)
-
-        ids, names, times = zip(*results)
 
         window['Start'].update(disabled=False)
         window['-DISKS-'].update(disabled=False)
-        window['Wyjście'].update(disabled=False) 
+        window['Wyjście'].update(disabled=False)
+    elif event == 'Wyniki':
+        results = connector.GetDataHandler(cnx)
+        ids, names, times = zip(*results)
+        preview_graph.show_graph(names, times, cnx)
     elif event == 'Odśwież':
         main_window.main_refresh(window)   
         window.refresh()

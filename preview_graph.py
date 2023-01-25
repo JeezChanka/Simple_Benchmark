@@ -20,7 +20,7 @@ def create_bar_graph(name, result):
 def getLayoutGraph():
     return [[sg.Text('Porównanie wyników')], 
             [sg.Canvas(size=(1000, 1000), key='-CANVAS-')],
-            [sg.Input(key='-NAME-', size=(20,60)),sg.Button(key='-SAVE-',button_text="Zapisz wynik", pad=(10,10)),sg.Exit(button_text='Zamknij')]]
+            [sg.Exit(button_text='Zamknij')]]
 
 
 #rysowanie wykresów
@@ -29,12 +29,6 @@ def draw_figure(canvas, figure):
     figure_canvas_agg.draw()
     figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
     return figure_canvas_agg
-    
-    
-def save_handler(cnx, name, final_result, window):
-    connector.InsertDataHandler(cnx, (name, final_result))
-    window['-SAVE-'].update(disabled=True)
-    window['-NAME-'].update(disabled=True)
 
 
 def show_graph(names, times, cnx):
@@ -45,9 +39,5 @@ def show_graph(names, times, cnx):
         event, values = window.read()
         if event == sg.WIN_CLOSED or event == 'Zamknij':
             break
-        elif event == '-SAVE-':
-            save_handler(cnx, values['-NAME-'], times[9], window)
     
-    window['-SAVE-'].update(disabled=False)
-    window['-NAME-'].update(disabled=False)    
     window.close()

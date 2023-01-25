@@ -20,7 +20,10 @@ def getLayoutMainWindow():
     return [[sg.Text('Benchmark dysków przenośnych', pad=(10,10))],
             [sg.Text('Wybierz dysk:', pad=(0, 10)), sg.OptionMenu(values=drives, key='-DISKS-', size=(10, 60), default_value=drives[0])],
             [sg.Text('Ilość bloków danych:', pad=(0, 10)), sg.OptionMenu(values=possible_block_counts, key='-BLOCK_COUNT-', size=(10, 60), default_value=possible_block_counts[0])],
-            [sg.Button(button_text='Start', size=(7,1), pad=(0,10)), sg.Button(button_text='Odśwież', size=(7,1), pad=(10,10)),sg.Exit(button_text="Wyjście", size=(7,1))]]
+            [sg.Button(button_text='Start', size=(7,1), pad=(0,10)),
+             sg.Button(button_text='Odśwież', size=(7, 1), pad=(10, 10)),
+             sg.Button(button_text='Wyniki', size=(7,1), pad=(10,10)),
+             sg.Exit(button_text="Wyjście", size=(7,1))]]
     
 
 def get_removable_drives():
