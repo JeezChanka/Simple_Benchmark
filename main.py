@@ -34,7 +34,7 @@ while True:
         window['-DISKS-'].update(disabled=True)
         window['Wyjście'].update(disabled=True)
         selected_drive = values['-DISKS-']
-        new_result = benchmark.start_benchmark()
+        new_result = benchmark.start_benchmark(selected_drive)
         # print(new_result)
         names = names[:-1] + ('Twój wynik',)
         times = times[:-1] + (new_result,)

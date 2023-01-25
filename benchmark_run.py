@@ -7,6 +7,8 @@ write_size_MB = [1024, 10] # size MB to save
 write_block_size_kB = [1024*100, 1024*10]
 read_size_MB = 1000
 read_block_size_kB = 1024*100
+
+
 def read_test(directory, block_size, blocks_count):
     print("%d block size, %d blocks" % ( block_size, blocks_count))
     f = os.open(directory, os.O_RDONLY | os.O_BINARY)
@@ -41,6 +43,7 @@ def read_test(directory, block_size, blocks_count):
     result=block_size*blocks_count / 1024/1024/sum(took)
     print("Reading speed result: %.2f MB/s" % result)
 
+
 def write_test(directory, block_size, blocks_count):
     print("%s block size, %s blocks" % ( block_size, blocks_count))
     f = os.open(directory, os.O_CREAT | os.O_WRONLY)
@@ -54,7 +57,9 @@ def write_test(directory, block_size, blocks_count):
         took.append(t)
     os.close(f)
     result = block_size*blocks_count / 1024/1024/sum(took)
-    print("Writing speed result: %.2f MB/s" % result) 
+    print("Writing speed result: %.2f MB/s" % result)
+    return result
+
 
 def read_test2(directory, block_size, blocks_count):
     print("%d block size, %d blocks" % ( block_size, blocks_count))
@@ -86,14 +91,15 @@ def read_test2(directory, block_size, blocks_count):
     # result=block_size*blocks_count / 1024/1024/sum(took)
     # print("Reading speed result: %.2f MB/s" % result)
 
+
 def main():
     directory = 'E:\\testy'
     # directory = 'C:\\Users\\wojci\\testy'
     # for i in range(len(write_size_MB)):
     i = 0
-    # write_test(directory, write_block_size_kB[i]*1024, int(write_size_MB[i]*1024/write_block_size_kB[i]))
-    read_test(directory, read_block_size_kB*1024,int(read_size_MB * 1024 / read_block_size_kB))
+    write_test(directory, write_block_size_kB[i]*1024, int(write_size_MB[i]*1024/write_block_size_kB[i]))
+    # read_test(directory, read_block_size_kB*1024,int(read_size_MB * 1024 / read_block_size_kB))
 
 
-main()
+# main()
 

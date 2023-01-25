@@ -10,9 +10,9 @@ def create_bar_graph(name, result):
     plt.figure(figsize =(10, 7))
     plt.bar(helper, result, color="red", width=0.4)
     plt.xticks(ticks=helper, labels=name, rotation=15)
-    plt.title('Czas zapisu dla poszczególnych pamięci', fontsize=14)
+    plt.title('Porównanie prędkości zapisu (więcej = lepiej)', fontsize=14)
     plt.xlabel('Pamięci', fontsize=14)
-    plt.ylabel('Czas zapisu [s]', fontsize=14)
+    plt.ylabel('Prędkość zapisu [MB/s]', fontsize=14)
     return plt.gcf()
 
 
