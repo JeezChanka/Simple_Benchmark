@@ -46,7 +46,7 @@ def read_test(directory, block_size, blocks_count):
 
 def write_test(directory, block_size, blocks_count):
     print("%s block size, %s blocks" % ( block_size, blocks_count))
-    f = os.open(directory, os.O_CREAT | os.O_WRONLY | os.O_TRUNC | os.O_RANDOM, 0o777)
+    f = os.open(directory, os.O_CREAT | os.O_WRONLY | os.O_TRUNC, 0o777)
     took = []
     for i in range(blocks_count):
         buff = os.urandom(block_size)
