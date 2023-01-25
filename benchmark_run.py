@@ -46,17 +46,18 @@ def read_test(directory, block_size, blocks_count):
 
 def write_test(directory, block_size, blocks_count):
     print("%s block size, %s blocks" % ( block_size, blocks_count))
-    f = os.open(directory, os.O_CREAT | os.O_WRONLY)
+    f = os.open(directory, os.O_CREAT | os.O_WRONLY | os.O_TRUNC | os.O_RANDOM, 0o777)
     took = []
     for i in range(blocks_count):
         buff = os.urandom(block_size)
         start = time()
         os.write(f, buff)
         os.fsync(f)
-        t = time() -start
+        t = time() - start
         took.append(t)
+        print("Block nr %d done in %.2f s" % (i + 1, t))
     os.close(f)
-    result = block_size*blocks_count / 1024/1024/sum(took)
+    result = block_size*blocks_count / 1024 / 1024 / sum(took)
     print("Writing speed result: %.2f MB/s" % result)
     return result
 

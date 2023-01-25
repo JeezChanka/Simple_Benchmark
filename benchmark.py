@@ -3,7 +3,8 @@ import time
 
 import benchmark_run
 
-def start_benchmark(selected_drive):
+
+def start_benchmark(selected_drive, selected_block_count):
     #do some stuff
     layout = [[sg.Text('Testowanie urządznia')], 
               [sg.Canvas(size=(1000, 1000), key='-SPINNER-')]]
@@ -11,7 +12,7 @@ def start_benchmark(selected_drive):
     window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center',size=(300, 150)) 
     return_result = 0
     
-    calculate(window, selected_drive)
+    calculate(window, selected_drive, selected_block_count)
     
     while True:
         event, values = window.read()
@@ -23,14 +24,16 @@ def start_benchmark(selected_drive):
     return return_result
 
 
-def calculate(window, selected_drive):
+def calculate(window, selected_drive, selected_block_count):
     # time.sleep(5)
     # benchmark_result = 10
 
-    block_size_bytes = 1024 * 1024 * 100  # 100 MB
-    block_count = 10
+    selected_block_count = int(selected_block_count)
 
-    write_speed_MB = benchmark_run.write_test(selected_drive + 'testy', block_size_bytes, block_count)
+    total_test_size = 1024 * 1024 * 1024  # 1GB
+    block_size_bytes = total_test_size // selected_block_count
+
+    write_speed_MB = benchmark_run.write_test(selected_drive + 'testy', block_size_bytes, selected_block_count)
 
     # do calculation here
     window.write_event_value('-BENCHAMRK-END-', write_speed_MB)  # benchmark_result is result time form benchmark
