@@ -51,4 +51,3 @@ def show_graph(names, times, cnx):
     window['-SAVE-'].update(disabled=False)
     window['-NAME-'].update(disabled=False)    
     window.close()
-    

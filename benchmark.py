@@ -6,7 +6,7 @@ import benchmark_run
 
 def start_benchmark(selected_drive, selected_block_count):
     #do some stuff
-    layout = [[sg.Text('Testowanie urządznia')], 
+    layout = [[sg.Text('Testowanie urządzenia')],
               [sg.Canvas(size=(1000, 1000), key='-SPINNER-')]]
     
     window = sg.Window('OESK Benchmark', layout, finalize=True, element_justification='center',size=(300, 150)) 
